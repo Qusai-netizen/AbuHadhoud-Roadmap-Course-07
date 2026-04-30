@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+void ordered3By3Matrix(int matrix[3][3])
+{
+	int n = 1;
+	for (int r = 0; r < 3; ++r)
+	{
+		for (int c = 0; c < 3; ++c)
+		{
+			matrix[r][c] = n++;
+		}
+	}
+}
+
+void print3By3matrix(int matrix[3][3])
+{
+	cout << "\nThe following is an ordered " << "3*3" << " matrix:\n";
+
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+		{
+			cout << setw(3) << matrix[r][c] << "\t";
+		}
+		cout << "\n";
+	}
+}
+
+int main()
+{
+	srand(time(0));
+
+	int matrix[3][3];
+
+	ordered3By3Matrix(matrix);
+	print3By3matrix(matrix);
+
+
+	return 0;
+}
