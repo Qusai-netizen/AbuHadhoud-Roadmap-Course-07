@@ -31,6 +31,4 @@ Projects/: Larger assignments that combine multiple concepts into a single appli
 🛠 Technologies Used
 Language: C++
 
-Compiler: GCC / Clang
-
 Environment: [Your Editor, e.g., VS Code or Visual Studio]
