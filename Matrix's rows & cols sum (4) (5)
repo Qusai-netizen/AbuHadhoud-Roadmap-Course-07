@@ -21,7 +21,7 @@ void rand3By3Matrix(int matrix[3][3])
 
 void print3By3matrix(int matrix[3][3])
 {
-	cout << "\nThe following is a " << "3*3" << " matrix:\n";
+	cout << "\nThe following is a random " << "3*3" << " matrix:\n";
 
 	for (unsigned short r = 0; r <= 2; ++r)
 	{
