@@ -1,0 +1,70 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+int randomN(int from, int to)
+{
+	return from + (rand() % (to - from + 1));
+}
+
+void rand3By3Matrix(int matrix[3][3])
+{
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+			matrix[r][c] = randomN(1, 100);
+	}
+}
+
+void print3By3matrix(int matrix[3][3])
+{
+	cout << "\nThe following is " << "3*3" << " matrix:\n";
+
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+		{
+			cout << setw(3) << matrix[r][c] << "\t";
+		}
+		cout << "\n";
+	}
+}
+
+
+void matrixRowsSums(int matrix[3][3], int sums[3])
+{
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+		{
+			sums[r] += matrix[r][c];
+		}
+	}
+}
+
+void printMatrixRowsSums(int sums[3])
+{
+	cout << "\nThe following are the sums of each row in the matrix:\n";
+	for (int i = 0; i < 3; ++i)
+		cout << "Row " << (i+1) << " sum: " << sums[i] << "\n";
+}
+
+int main()
+{
+	srand(time(0));
+
+	int matrix[3][3];
+
+	rand3By3Matrix(matrix);
+	print3By3matrix(matrix);
+
+	int sums[3] = { 0, 0, 0 };
+
+	matrixRowsSums(matrix, sums);
+	printMatrixRowsSums(sums);
+
+	return 0;
+}
