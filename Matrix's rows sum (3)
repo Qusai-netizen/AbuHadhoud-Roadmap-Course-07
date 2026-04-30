@@ -38,6 +38,7 @@ void matrixRowsSums(int matrix[3][3], int sums[3])
 {
 	for (unsigned short r = 0; r <= 2; ++r)
 	{
+		sums[r] = 0;
 		for (unsigned short c = 0; c <= 2; ++c)
 		{
 			sums[r] += matrix[r][c];
@@ -61,7 +62,7 @@ int main()
 	rand3By3Matrix(matrix);
 	print3By3matrix(matrix);
 
-	int sums[3] = { 0, 0, 0 };
+	int sums[3];
 
 	matrixRowsSums(matrix, sums);
 	printMatrixRowsSums(sums);
