@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+vector<vector<int>> rand3By3Matrix()
+{
+    vector<vector<int>> matrix = { {0,0,0}, {0,0,0}, {0,0,0} };
+    for (vector<int>& row : matrix)
+    {
+        for (int& col : row)
+        {
+            col = (rand() % 100) + 1;
+        }
+    }
+    return matrix;
+}
+
+void print2DVec(const vector<vector<int>>& vec)
+{
+    for (const vector<int>& row : vec)
+    {
+        for (const int& col : row)
+        {
+            cout << setw(3) << col << "\t";
+        }
+        cout << "\n";
+    }
+}
+
+int main() {
+    srand(time(0));
+    vector<vector<int>> vec = rand3By3Matrix();
+    print2DVec(vec);
+    return 0;
+}
