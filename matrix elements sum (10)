@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+int randomN(int from, int to)
+{
+	return from + (rand() % (to - from + 1));
+}
+
+void rand3By3Matrix(int matrix[3][3])
+{
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+			matrix[r][c] = randomN(1, 10);
+	}
+}
+
+int sumOf3By3MatrixElements(int matrix[3][3])
+{
+	int sum = 0;
+	for (int r = 0; r < 3; ++r)
+	{
+		for (int c = 0; c < 3; ++c)
+			sum += matrix[r][c];
+	}
+	return sum;
+}
+
+void print3By3matrix(int matrix[3][3], string matrixType)
+{
+	cout << "\nThe following is " << matrixType << " 3*3 " << "matrix:\n";
+
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+		{
+			printf("%02d\t", matrix[r][c]);
+		}
+		cout << "\n";
+	}
+}
+
+
+int main()
+{
+	srand(time(0));
+
+	int matrix[3][3];
+
+	rand3By3Matrix(matrix);
+	print3By3matrix(matrix, "the first");
+
+	cout << "\n\n";
+
+	cout << "The sum of matrix elements is: " << sumOf3By3MatrixElements(matrix);
+
+	
+	return 0;
+}
