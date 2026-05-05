@@ -1,0 +1,94 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+int randomN(int from, int to)
+{
+	return from + (rand() % (to - from + 1));
+}
+
+void rand3By3Matrix(int matrix[3][3])
+{
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+			matrix[r][c] = randomN(1, 10);
+	}
+}
+
+// For odd number of rows
+void matrixMidRow(int matrix[3][3], int matMidRow[3], int rows = 3, int cols = 3)
+{
+	if (rows % 2 == 0)
+		return;
+
+	int mid = rows / 2;
+
+	for (int i = 0; i < cols; ++i)
+	{
+		matMidRow[i] = matrix[mid][i];
+	}
+}
+
+// For odd number of columns
+void matrixMidCol(int matrix[3][3], int matMidCol[3], int rows = 3, int cols = 3)
+{
+	if (cols % 2 == 0)
+		return;
+
+	int mid = cols / 2;
+
+	for (int i = 0; i < rows; ++i)
+	{
+		matMidCol[i] = matrix[i][mid];
+	}
+}
+
+void print3By3matrix(int matrix[3][3], string matrixType)
+{
+	cout << "\nThe following is " << matrixType << " 3*3 " << "matrix:\n";
+
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+		{
+			printf("%02d\t", matrix[r][c]);
+		}
+		cout << "\n";
+	}
+}
+
+void printArray(int arr[], int length, string headMessage)
+{
+	cout << "\n" << headMessage << "\n";
+	for (int i = 0; i < length; ++i)
+	{
+		printf("%02d\t", arr[i]);
+	}
+}
+
+int main()
+{
+	srand(time(0));
+
+	int matrix[3][3];
+	int matMidRow[3];
+	int matMidCol[3];
+
+	rand3By3Matrix(matrix);
+	print3By3matrix(matrix, "the first");
+
+	cout << "\n\n";
+
+	matrixMidRow(matrix, matMidRow);
+	printArray(matMidRow, 3, "The middle row of the matrix is: ");
+
+	cout << "\n\n";
+
+	matrixMidCol(matrix, matMidCol);
+	printArray(matMidCol, 3, "The middle column of the matrix is: ");
+	return 0;
+}
