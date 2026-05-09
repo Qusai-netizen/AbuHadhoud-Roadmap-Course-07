@@ -1,0 +1,87 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+int readInt(string message, bool isPos = 1)
+{
+	int num;
+	cout << "\n" << message;
+
+	do
+	{
+		cin >> num;
+		if (isPos && num < 0)
+		{
+			cout << "\nPositive number: ";
+		}
+		else if (!isPos && num > 0)
+		{
+			cout << "\Nigative number: ";
+		}
+		else if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << "\nInvalid value: ";
+		}
+		else
+			break;
+	} while (true);
+
+	return num;
+}
+
+unsigned short countElementInMatrix(int matrix[3][3], int element)
+{
+	unsigned short counter = 0;
+	for (int r = 0; r < 3; ++r)
+	{
+		for (int c = 0; c < 3; ++c)
+		{
+			if (matrix[r][c] == element)
+			{
+				++counter;
+			}
+		}
+	}
+	return counter;
+}
+
+void print3By3matrix(int matrix[3][3], string matrixType, unsigned short numLength = 2)
+{
+	cout << "\nThe following is " << matrixType << " 3*3 " << "matrix:\n";
+
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+		{
+			printf("%0*d\t", numLength, matrix[r][c]);
+		}
+		cout << "\n";
+	}
+}
+
+
+int main()
+{
+	srand(time(0));
+
+	int matrix[3][3] =
+	{
+		{9, 1, 12},
+		{0, 9, 0},
+		{0, 0, 9}
+	};
+
+	print3By3matrix(matrix, "a", 1);
+
+	int numOfCount = readInt("Enter the number you want to count in the matrix: ");
+
+
+	cout << "\n\nThe number (" << numOfCount << ") is repeated (" << countElementInMatrix(matrix, numOfCount) << ") time(s).";
+
+	return 0;
+}
