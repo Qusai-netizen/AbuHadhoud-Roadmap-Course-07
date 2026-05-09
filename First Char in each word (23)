@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cctype>
+#include <string>
+using namespace std;
+
+string readTxt(string message)
+{
+	string s;
+
+	cout << "\n" << message;
+	
+	getline(cin, s);
+
+	return s;
+}
+
+void printFirstChars(string s)
+{
+	bool isCatch = 1;
+	cout << "\nThose are the first characters of each word:\n";
+	for (char ch : s)
+	{
+		if (isCatch)
+		{
+			cout << ch << "\n";
+			isCatch = 0;
+		}
+		if (ch == ' ')
+			isCatch = 11;
+	}
+}
+
+int main()
+{
+	string txt = readTxt("Enter your text: ");
+
+	printFirstChars(txt);
+	return 0;
+}
