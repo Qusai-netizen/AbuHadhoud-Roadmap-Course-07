@@ -1,0 +1,64 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+
+bool isMatrixScalar(int matrix[3][3])
+{
+	short firstDisgonal = matrix[0][0];
+	for (int r = 0; r < 3; ++r)
+	{
+		for (int c = 0; c < 3; ++c)
+		{
+			if ((r == c && matrix[r][c] != firstDisgonal) || (r != c && matrix[r][c] != 0))
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
+void print3By3matrix(int matrix[3][3], string matrixType, unsigned short numMaxLength = 2)
+{
+	cout << "\nThe following is " << matrixType << " 3*3 " << "matrix:\n";
+
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+		{
+			printf("%0*d\t", numMaxLength, matrix[r][c]);
+		}
+		cout << "\n";
+	}
+}
+
+
+int main()
+{
+	srand(time(0));
+
+	int matrix[3][3] =
+	{
+		{9, 0, 0},
+		{0, 9, 0},
+		{0, 0, 9}
+	};
+
+	//int matrix[3][3] =
+	//{
+	//	{9, 0, 0},
+	//  {0, 3, 0},
+	//  {0, 0, 9}
+	//};
+
+	print3By3matrix(matrix, "a", 1);
+
+
+	cout << "\n\nThe matrixe is" << (isMatrixScalar(matrix) ? "" : "n't") << " scalar.";
+	
+	return 0;
+}
