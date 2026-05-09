@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+void print10FibonacciNums()
+{
+	int pre = 0, now = 1, temp;
+	
+	cout << "Those are a series of ten fibonacci numbers: ";
+	for (int i = 1; i <= 10; ++i)
+	{
+		cout << now << "  ";
+		temp = now;
+		now += pre;
+		pre = temp;
+	}
+}
+
+int main()
+{
+	print10FibonacciNums();
+	return 0;
+}
