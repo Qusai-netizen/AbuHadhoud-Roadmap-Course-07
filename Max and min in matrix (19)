@@ -1,0 +1,73 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+short maxNum(int matrix[3][3])
+{
+	short max = matrix[0][0];
+	for (int r = 0; r < 3; ++r)
+	{
+		for (int c = 0; c < 3; ++c)
+		{
+			if (matrix[r][c]  > max)
+			{
+				max = matrix[r][c];
+			}
+		}
+	}
+	return max;
+}
+
+short minNum(int matrix[3][3])
+{
+	short min = matrix[0][0];
+	for (int r = 0; r < 3; ++r)
+	{
+		for (int c = 0; c < 3; ++c)
+		{
+			if (matrix[r][c] < min)
+			{
+				min = matrix[r][c];
+			}
+		}
+	}
+	return min;
+}
+
+void print3By3matrix(int matrix[3][3], string matrixType, unsigned short numLength = 2)
+{
+	cout << "\nThe following is " << matrixType << " 3*3 " << "matrix:\n";
+
+	for (unsigned short r = 0; r <= 2; ++r)
+	{
+		for (unsigned short c = 0; c <= 2; ++c)
+		{
+			printf("%0*d\t", numLength, matrix[r][c]);
+		}
+		cout << "\n";
+	}
+}
+
+int main()
+{
+	srand(time(0));
+
+	int matrix[3][3] =
+	{
+		{9, 1, 12},
+		{0, 9, 0},
+		{0, 0, 0}
+	};
+
+
+	print3By3matrix(matrix, "a", 1);
+
+
+	cout << "\n\nThe max number is: " << maxNum(matrix);
+	cout << "\n\nThe min number is: " << minNum(matrix);
+
+	return 0;
+}
