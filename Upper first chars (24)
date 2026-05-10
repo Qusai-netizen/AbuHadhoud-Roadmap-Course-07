@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string readTxt(string message)
+{
+	string s;
+
+	cout << "\n" << message;
+	
+	getline(cin, s);
+
+	return s;
+}
+
+void upperFirstChars(string& s)
+{
+	bool isCatch = 1;
+	for (char& ch : s)
+	{
+		if (isCatch)
+		{
+			if ((int)ch >= 97)
+				ch -= 32;
+			isCatch = 0;
+		}
+		if (ch == ' ')
+			isCatch = 1;
+	}
+}
+
+int main()
+{
+	string txt = readTxt("Enter your text: ");
+
+	upperFirstChars(txt);
+	cout << "Your text after conversion:\n" << txt;
+	return 0;
+}
