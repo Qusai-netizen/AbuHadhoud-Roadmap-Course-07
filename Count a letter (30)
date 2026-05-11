@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+enum enCountThis {SMALLS=1, CAPITALS=2, ALL=3};
+
+string readTxt(string message, bool isLine = 0) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+unsigned short countChInTxt(const string& txt, const char& requiredCh)
+{
+	unsigned short counter = 0;
+
+	for (const char& ch : txt)
+	{
+		counter += ch == requiredCh ? 1 : 0;
+	}
+
+	return counter;
+}
+
+int main()
+{
+	string txt = readTxt("Enter a text to count: "), inverted;
+	
+	char requiredCh;
+	cout << "\nEnter the letter you want to count: ";
+	cin >> requiredCh;
+
+	cout << "\n(" << requiredCh << "): " << countChInTxt(txt, requiredCh);
+
+	
+	return 0;
+}
