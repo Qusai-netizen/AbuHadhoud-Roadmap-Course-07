@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string readTxt(string message, bool isLine = 0) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+char invertChar(char ch)
+{
+	if ((int)ch >= 65 && (int)ch <= 91)
+		return char((int)ch + 32);
+	else if ((int)ch >= 97 && (int)ch <= 123)
+		return char((int)ch - 32);
+
+	return ch;
+}
+
+string invertAllLetters(string txt)
+{
+	for (char& ch : txt)
+		ch = invertChar(ch);
+	return txt;
+}
+
+int main()
+{
+	string txt = readTxt("Enter a text to invert: "), inverted;
+
+	inverted = invertAllLetters(txt);
+	cout << "\nYour inverted text:\n" << inverted;
+	
+	return 0;
+}
