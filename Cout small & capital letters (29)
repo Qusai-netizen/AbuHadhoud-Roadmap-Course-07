@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+string readTxt(string message, bool isLine = 0) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+unsigned short countSmalls(const string& txt)
+{
+	unsigned short counter = 0;
+	for (const char& ch : txt)
+		counter += (islower(ch) ? 1 : 0);
+	return counter;
+}
+
+unsigned short countCapitals(const string& txt)
+{
+	unsigned short counter = 0;
+	for (const char& ch : txt)
+		counter += (isupper(ch) ? 1 : 0);
+	return counter;
+}
+
+int main()
+{
+	string txt = readTxt("Enter a text to count: "), inverted;
+
+	cout << "\nString length: " << txt.length();
+
+	cout << "\nCapital letters: " << countCapitals(txt);
+	
+	cout << "\nSmall letters: " << countSmalls(txt);
+	
+	return 0;
+}
