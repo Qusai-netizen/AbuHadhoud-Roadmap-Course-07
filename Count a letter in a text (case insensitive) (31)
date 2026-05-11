@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+enum enCountThis {SMALLS=1, CAPITALS=2, ALL=3};
+
+string readTxt(string message, bool isLine = 0) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+unsigned short countChInTxt(const string& txt, char requiredCh, bool isCaseSensitive = 1)
+{
+	unsigned short counter = 0;
+
+	if (!isCaseSensitive)
+		requiredCh = tolower(requiredCh);
+
+	for (const char& ch : txt)
+	{
+		counter += (isCaseSensitive) ? (ch == requiredCh ? 1 : 0) : (tolower(ch) == requiredCh ? 1 : 0);
+	}
+
+	return counter;
+}
+
+int main()
+{
+	string txt = readTxt("Enter a text to count: "), inverted;
+	
+	char requiredCh;
+	cout << "\nEnter the letter you want to count: ";
+	cin >> requiredCh;
+
+	cout << "\n(" << requiredCh << "): " << countChInTxt(txt, requiredCh);
+
+	cout << "\n(" << char(tolower(requiredCh)) << ") or (" << char(toupper(requiredCh)) << "): " << countChInTxt(txt, requiredCh, 0);
+	return 0;
+}
