@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+string readTxt(string message, bool isLine = 0) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+bool isVowel(char ch)
+{
+	ch = tolower(ch);
+	return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
+}
+
+int countVowels(const string& s)
+{
+	int count = 0;
+	for (const char& ch : s)
+		if (isVowel(ch))
+			++count;
+	return count;
+}
+
+int main()
+{
+	string s = readTxt("Enter a text: ");
+
+	cout << "\n\nThere is: " << countVowels(s) << " vowels";
+	return 0;
+}
