@@ -1,0 +1,28 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+
+bool isVowel(char ch)
+{
+	ch = tolower(ch);
+	return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
+}
+
+int main()
+{
+	char ch;
+	cout << "Enter a character to check if its vowel: ";
+	cin >> ch;
+
+	cout << "\n\nIt's ";
+
+	if (isVowel(ch))
+		cout << "vowel.";
+	else
+		cout << "constant.";
+
+	return 0;
+}
