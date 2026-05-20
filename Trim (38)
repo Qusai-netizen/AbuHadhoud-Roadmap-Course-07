@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string readTxt(string message) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+string trim(string s, string side = "both")
+{
+	int count = 0;
+	if (side == "right" || side == "both")
+	{
+		if (s.length() > 0)
+			for (int i = s.length() - 1; i >= 0; --i)
+				if (s[i] == ' ')
+					++count;
+				else
+					break;
+
+		s = s.erase(s.length() - count, count);
+
+		if (side == "right")
+			return s;
+	}
+
+	if (side == "left" || side == "both")
+	{
+		count = 0;
+		for (char& ch : s)
+			if (ch == ' ')
+				++count;
+			else
+				break;
+
+		s = s.erase(0, count);
+		return s;
+	}
+	return "";
+}
+
+int main()
+{
+	string s = readTxt("Enter a text: ");
+	string side = readTxt("Enter the side of trimming (right, left, both): ");
+
+	s = trim(s, side);
+	cout << "\n\nYour text after trimming: (" << s << ")";
+	return 0;
+}
