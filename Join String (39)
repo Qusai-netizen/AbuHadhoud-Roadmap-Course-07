@@ -1,0 +1,31 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string readTxt(string message) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+string joinStr(const vector<string>& vec, string separator)
+{
+	string s;
+	for (int i = 0; i < vec.size() - 1; ++i)
+		s += vec[i] + separator;
+	s += vec[vec.size() - 1];
+	return s;
+}
+
+int main()
+{
+	vector<string> vec = { "Qusai", "Adel", "Sari" };
+
+	string joined = joinStr(vec, ",");
+	cout << "Vector after join: " << joined;
+	
+	return 0;
+}
