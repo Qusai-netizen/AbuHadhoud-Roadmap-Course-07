@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+string readTxt(string message, bool isLine = 0) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+int countWords(string s, string delim = " ")
+{
+	int pos = 0, count = 0;
+	string word;
+
+	while ((pos = s.find(delim)) != std::string::npos)
+	{
+		word = s.substr(0, pos);
+
+		if (word != "")
+			++count;
+
+		s.erase(0, pos + delim.length());
+	}
+
+	if (s != "")
+		++count;
+
+	return count;
+}
+
+int main()
+{
+	string s = readTxt("Enter a text: ");
+
+	cout << "\n\nThe number of words is: " << countWords(s);
+	return 0;
+}
