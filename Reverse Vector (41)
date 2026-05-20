@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string readTxt(string message) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+vector<string> reverseVec(const vector<string>& vec)
+{
+	vector<string> vecR;
+	if (!vec.empty())
+		for (int i = vec.size() - 1; i >= 0; --i)
+			vecR.push_back(vec[i]);
+	return vecR;
+}
+
+vector<string> splitString(string s, string delim = " ")
+{
+	int pos = 0;
+	vector<string> vec;
+	string word;
+
+	while ((pos = s.find(delim)) != std::string::npos)
+	{
+		word = s.substr(0, pos);
+
+		if (word != "")
+			vec.push_back(word);
+
+		s.erase(0, pos + delim.length());
+	}
+
+	if (s != "")
+		vec.push_back(s);
+
+	return vec;
+}
+
+
+string joinStr(const vector<string>& vec, string separator)
+{
+	string s;
+	if (!vec.empty())
+	{
+		for (int i = 0; i < vec.size() - 1; ++i)
+			s += vec[i] + separator;
+		s += vec[vec.size() - 1];
+	}
+	return s;
+}
+
+
+int main()
+{
+	string txt = readTxt("Enter your string to reverse: ");
+
+	vector<string> vec = splitString(txt);
+
+	vec = reverseVec(vec);
+
+	txt = joinStr(vec, " ");
+
+	cout << "Reversed text: " << txt;
+	return 0;
+}
