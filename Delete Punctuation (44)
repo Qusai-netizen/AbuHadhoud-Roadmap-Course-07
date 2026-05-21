@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+
+string readTxt(string message) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+string deletePunct(string str)
+{
+	for (int i = 0; i < str.length(); ++i)
+	{
+		if (!isalpha(str[i]) && str[i] != ' ')
+		{
+			str.erase(i, 1);
+			--i;
+		}
+	}
+
+	return str;
+}
+
+int main()
+{
+	string txt = "Qusai, Be a real Muslim, be an effective Muslim, who worships God in every dead in thier life. Qusai by the willingness of god you can do it.";
+	
+	cout << "The original text:\n" << txt << "\n\n";
+
+	cout << "Text after punctuation deletion:\n" << deletePunct(txt);
+
+	return 0;
+}
