@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+
+string readTxt(string message) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+struct stClientD
+{
+	string AccountId, pin, name, phone;
+	double accountBalance;
+};
+
+stClientD newClient()
+{
+	stClientD clientD;
+
+	clientD.AccountId = readTxt("Enter your ID: ");
+	clientD.pin = readTxt("Enter pin: ");
+	clientD.name = readTxt("Enter your name: ");
+	clientD.phone = readTxt("Enter your phone number: ");
+	cout << "\nEnter your balance: ";
+	cin >> clientD.accountBalance;
+
+	return clientD;
+}
+
+string clientRecordToLine(stClientD* clientD, string sepa)
+{
+	return clientD->AccountId + sepa + clientD->pin + sepa + clientD->name + sepa + clientD->phone + sepa + to_string(clientD->accountBalance);
+}
+
+int main()
+{
+	stClientD clientD;
+
+	clientD = newClient();
+
+	cout << clientRecordToLine(&clientD, "//");
+
+	return 0;
+}
