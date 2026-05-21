@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+
+string readTxt(string message) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+struct stClientD
+{
+	string AccountId, pin, name, phone;
+	double accountBalance;
+};
+
+stClientD clientLineToRecord(string ClientDInLine, string sepa)
+{
+	stClientD clientD;
+
+	clientD.AccountId = ClientDInLine.substr(0, ClientDInLine.find(sepa));
+	ClientDInLine = ClientDInLine.substr(ClientDInLine.find(sepa) + sepa.length());
+
+	clientD.pin = ClientDInLine.substr(0, ClientDInLine.find(sepa));
+	ClientDInLine = ClientDInLine.substr(ClientDInLine.find(sepa) + sepa.length());
+
+	clientD.name = ClientDInLine.substr(0, ClientDInLine.find(sepa));
+	ClientDInLine = ClientDInLine.substr(ClientDInLine.find(sepa) + sepa.length());
+
+	clientD.phone = ClientDInLine.substr(0, ClientDInLine.find(sepa));
+	ClientDInLine = ClientDInLine.substr(ClientDInLine.find(sepa) + sepa.length());
+
+	clientD.accountBalance = stod(ClientDInLine);
+
+	return clientD;
+}
+
+void printClientD(const stClientD* clientD)
+{
+	cout << "\nID             : " << clientD -> AccountId << "\n";
+	cout << "Pin            : " << clientD -> pin << "\n";
+	cout << "Name           : " << clientD -> name << "\n";
+	cout << "Phone number   : " << clientD -> phone << "\n";
+	cout << "Account Balance: " << clientD -> accountBalance << "\n";
+}
+
+int main()
+{
+	string clientDInLine = "123A//1123//Qusai Sari//773029***//5000.23";
+
+	cout << "Line record is:\n" << clientDInLine;
+
+	stClientD clientD;
+
+	clientD = clientLineToRecord(clientDInLine, "//");
+
+	cout << "\n\nThe following is the extracted client record: \n";
+	printClientD(&clientD);
+	return 0;
+}
