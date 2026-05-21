@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+string toLowerC(string s)
+{
+	for (char& ch : s)
+		ch = static_cast<char>(tolower(static_cast<unsigned char>(ch)));
+	return s;
+}
+
+string readTxt(string message) {
+	string in;
+	cout << "\n" << message;
+	getline(cin, in);
+	return in;
+}
+
+string replaceWord(string str, string word, string replaceTo, bool isCaseSens = 1)
+{
+	int pos;
+	string str1 = str;
+
+	if (!isCaseSens)
+		str1 = toLowerC(str1);
+
+	while ( ( pos = str1.find( ( isCaseSens ) ? word : toLowerC( word ) ) ) != std::string::npos )
+	{
+		str = str.substr(0, pos) + replaceTo + str.substr(pos + word.length());
+		str1 = str1.substr(0, pos) + replaceTo + str1.substr(pos + word.length());
+	}
+
+	return str;
+}
+
+int main()
+{
+	string txt = "Qusai, Be a real Muslim, be an effective Muslim, who worships God in every dead in thier life. Qusai by the willingness of god you can do it.";
+	
+	cout << "The original text:\n" << txt << "\n\n";
+
+	cout << "Text after word replacement (Match):\n" << replaceWord(txt, "God", "Allah");
+	cout << "\n\nText after word replacement:\n" << replaceWord(txt, "God", "Allah", 0);
+
+	return 0;
+}
