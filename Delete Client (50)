@@ -1,0 +1,257 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+
+using namespace std;
+
+
+string readTxt(string message) {
+	string in;
+	cout << "\n" << message;
+	getline(cin >> ws, in);
+	return in;
+}
+
+//vector<string> splitString(string s, string delim = " ")
+//{
+//	int pos = 0;
+//	vector<string> vec;
+//	string word;
+//
+//	while ((pos = s.find(delim)) != std::string::npos)
+//	{
+//		word = s.substr(0, pos);
+//
+//		if (word != "")
+//			vec.push_back(word);
+//
+//		s.erase(0, pos + delim.length());
+//	}
+//
+//	if (s != "")
+//		vec.push_back(s);
+//
+//	return vec;
+//}
+
+struct stClientD
+{
+	string AccountId, pin, name, phone;
+	double accountBalance;
+};
+
+stClientD newClient()
+{
+	stClientD clientD;
+	cout << "\nNew client's field: \n\n";
+	clientD.AccountId = readTxt("Enter your ID: ");
+	clientD.pin = readTxt("Enter pin: ");
+	clientD.name = readTxt("Enter your name: ");
+	clientD.phone = readTxt("Enter your phone number: ");
+	cout << "\nEnter your balance: ";
+	cin >> clientD.accountBalance;
+
+	return clientD;
+}
+
+string clientRecordToLine(const stClientD& clientD, string sepa)
+{
+	return clientD.AccountId + sepa + clientD.pin + sepa + clientD.name + sepa + clientD.phone + sepa + to_string(clientD.accountBalance);
+}
+
+stClientD clientLineToRecord(string ClientDInLine, string sepa)
+{
+	stClientD clientD;
+
+	clientD.AccountId = ClientDInLine.substr(0, ClientDInLine.find(sepa));
+	ClientDInLine = ClientDInLine.substr(ClientDInLine.find(sepa) + sepa.length());
+
+	clientD.pin = ClientDInLine.substr(0, ClientDInLine.find(sepa));
+	ClientDInLine = ClientDInLine.substr(ClientDInLine.find(sepa) + sepa.length());
+
+	clientD.name = ClientDInLine.substr(0, ClientDInLine.find(sepa));
+	ClientDInLine = ClientDInLine.substr(ClientDInLine.find(sepa) + sepa.length());
+
+	clientD.phone = ClientDInLine.substr(0, ClientDInLine.find(sepa));
+	ClientDInLine = ClientDInLine.substr(ClientDInLine.find(sepa) + sepa.length());
+
+	clientD.accountBalance = stod(ClientDInLine);
+
+	return clientD;
+}
+
+void saveDataLineInFile(string ClientDInLine, string fileName)
+{
+	fstream file;
+
+	file.open(fileName, ios::app | ios::out);
+
+	if (file.is_open())
+	{
+		file << ClientDInLine << "\n";
+		file.close();
+	}
+	else
+		cout << "\n\nFile opening faild\n\n";
+}
+
+void saveClientsDfromVecToFile(const vector<stClientD>& clientsD, string fileName)
+{
+	fstream file;
+
+	file.open(fileName, ios::out);
+
+
+	for (const stClientD& clientD : clientsD)
+	{
+
+		if (file.is_open())
+			file << clientRecordToLine(clientD, "//") << "\n";
+		else
+			cout << "\n\nFile opening faild\n\n";
+	}
+	file.close();
+}
+
+void newClients()
+{
+	stClientD clientD;
+	string ClientDInLine;
+	bool isCon = 1;
+	while (isCon)
+	{
+		cout << "\n";
+		clientD = newClient();
+		ClientDInLine = clientRecordToLine(clientD, "//");
+		saveDataLineInFile(ClientDInLine, "clients.txt");
+
+		cout << "\nData saved successfully, Do you want to add another client(Yes = 1, No = 0): ";
+		cin >> isCon;
+		cin.ignore();
+	}
+}
+
+vector<stClientD> loadClientsToVec(string fileName)
+{
+
+	fstream in;
+	string ClientDInLine;
+	stClientD clientD;
+	vector<stClientD> clientsD;
+
+	in.open(fileName, ios::in);
+
+	if (in.is_open())
+	{
+		while (getline(in, ClientDInLine))
+		{
+			clientD = clientLineToRecord(ClientDInLine, "//");
+			clientsD.push_back(clientD);
+		}
+	}
+
+	in.close();
+
+	return clientsD;
+}
+
+int indexById(const vector<stClientD>& clientsD, string id)
+{
+	for (int i = 0; i < clientsD.size(); ++i)
+	{
+		if (clientsD[i].AccountId == id)
+			return i;
+	}
+	return -1;
+}
+
+void printClientD(const stClientD& clientD)
+{
+	cout << "\nThe following are the clients details: \n";
+	cout << "\nID             : " << clientD.AccountId << "\n";
+	cout << "Pin            : " << clientD.pin << "\n";
+	cout << "Name           : " << clientD.name << "\n";
+	cout << "Phone number   : " << clientD.phone << "\n";
+	cout << "Account Balance: " << clientD.accountBalance << "\n";
+}
+
+void deleteClientById(vector<stClientD>& clientsD)
+{
+	string id = readTxt("Enter the id of the client you want delete: ");
+
+	int index = indexById(clientsD, id);
+
+	if (index != -1)
+	{
+
+		printClientD(clientsD[index]);
+
+		cout << "\n\nAre you sure that you want to delete this client (Yes = 1, No = 0): ";
+		bool isDelete;
+		cin >> isDelete;
+		
+		if (isDelete)
+		{
+		clientsD.erase(clientsD.begin() + index);
+		saveClientsDfromVecToFile(clientsD, "clients.txt");
+		cout << "\n\nDeleted successfully!\n\n";
+		}
+		else
+			cout << "\n\nDeletion ignored!\n\n";
+	}
+	else
+		cout << "\n\nClient with account id (" << id << ") isn't found!\n\n";
+}
+
+void printAllClients(const vector<stClientD>& clientsD)
+{
+
+	
+	cout << "\n";
+	cout << "                              ";
+	cout << "" << "Client list (" << clientsD.size() << ") client(s)";
+	cout << "\n_____________________________________________________________________________________\n\n";
+
+	cout << "| " << left << setw(16) << "Acount Number";
+	cout << "| " << left << setw(10) << "Pin Code";
+	cout << "| " << left << setw(30) << "Client Name";
+	cout << "| " << left << setw(10) << "Phone";
+	cout << "| " << left << setw(6) << "Balance" << " |";
+
+	cout << "\n_____________________________________________________________________________________\n\n";
+
+	for (const stClientD& clientD : clientsD)
+	{
+		cout << "| " << left << setw(16) << clientD.AccountId;
+		cout << "| " << left << setw(10) << clientD.pin;
+		cout << "| " << left << setw(30) << clientD.name;
+		cout << "| " << left << setw(10) << clientD.phone;
+		cout << "| " << left << setw(7) << clientD.accountBalance << " |";
+
+		cout << "\n";
+
+	}
+		cout << "_____________________________________________________________________________________\n";
+}
+
+void printClientDById(const vector<stClientD>& clientsD)
+{
+	string id = readTxt("Enter the id of the client you want to show: ");
+
+	int index = indexById(clientsD, id);
+
+	if (index != -1)
+		printClientD(clientsD[index]);
+	else
+		cout << "\n\nClient with account id (" << id << ") isn't found!\n\n";
+}
+
+int main()
+{
+	vector<stClientD> clientsD = loadClientsToVec("clients.txt");
+	deleteClientById(clientsD);
+
+	return 0;
+}
