@@ -489,7 +489,7 @@ void transControl(vector<stClientD>& clientsD)
 		}
 
 
-		cout << "\n\nPress any key to go back to the main menu...";
+		cout << "\n\nPress any key to go back to the transaction menu...";
 		system("pause>0");
 		system("cls");
 	}
